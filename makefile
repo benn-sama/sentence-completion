@@ -6,7 +6,7 @@ CXXFLAGS = -std=c++11
 TARGET = main
 
 # Source files
-SRC = main.cpp
+SRC = main.cpp text_utils.cpp
 
 # Build rule
 all: $(TARGET)
@@ -16,4 +16,4 @@ $(TARGET): $(SRC)
 
 # Clean rule
 clean:
-	rm -f $(TARGET)
+	@if [ -f $(TARGET) ]; then rm -f $(TARGET); fi || del /f /q $(TARGET)
