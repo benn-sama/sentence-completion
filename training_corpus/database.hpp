@@ -24,15 +24,16 @@
 class Database {
   private:
     std::unordered_map<std::string, int> singleWord; // stores single words
-    std::unordered_map<std::string, int> doubleWord; // stores double words
+    std::unordered_map<std::string, std::unordered_map<std::string, int>> doubleWord; // stores double words
     
     bool insertOneWord(std::string word);
-    bool insertTwoWord(std::string word, std::string sentence);
+    bool insertTwoWord(std::string firstWord, std::string secondWord);
   public:
     Database() {};
     Database(int reserveCount) { singleWord.reserve(reserveCount); doubleWord.reserve(reserveCount); }
     void insert(std::string sentence);  // inserts string based on whether it is a one word or a two word
-    int retrieve(std::string sentence); // retrieves string
+    int retrieveCount(std::string sentence); // retrieves string
+    std::string retrieveNextWord(std::string word); // retrieves the next word
 };
 
 #endif
