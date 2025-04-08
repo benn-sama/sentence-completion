@@ -35,8 +35,8 @@ void Database::insert(std::string sentence) { // inserts two word string
   }
 }
 
-int Database::retrieveCount(std::string sentence) { // returns total string appearance or returns -1
-  std::istringstream stream(sentence);
+int Database::retrieveSingleWordCount(std::string word) { // returns total string appearance or returns -1
+  std::istringstream stream(word);
   std::string firstWord = "";
   std::string secondWord = "";
 
@@ -50,13 +50,19 @@ int Database::retrieveCount(std::string sentence) { // returns total string appe
     return singleWord[firstWord];
   }
   else {
-    return doubleWord[firstWord][secondWord];
+    return -1;
   }
-
-  return -1;
 }
 
-std::string Database::retrieveNextWord(std::string word) { // retrieves the next word
+int Database::retrieveNextWordCount(std::string firstWord, std::string secondWord) {
+  if (firstWord.empty() || secondWord.empty()) {
+    return -1;
+  }
+
+  return doubleWord[firstWord][secondWord];
+}
+
+std::string Database::retrieveNextFrequentWord(std::string word) { // retrieves the highest next word
   std::unordered_map<std::string, std::unordered_map<std::string, int>>::const_iterator outerTable;
   outerTable = doubleWord.find(word);
 

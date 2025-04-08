@@ -14,6 +14,21 @@
     - Constructs a Database object with a specified number of memory buckets.
     - Preallocating memory buckets is **RECOMMENDED** to avoid hashtable resizing,
       which has a time complexity of O(n).
+
+  Guide:
+  To interact with word frequencies, use the following functions:
+
+  To retrieve the count of a specific word, call retrieveSingleWordCount(std::string sentence).
+  Example: To get the count of the word "machine", call
+  retrieveSingleWordCount("machine");
+
+  To retrieve the next most frequent word after a given word, call retrieveNextFrequentWord(std::string word).
+  Example: To get the word that is next in frequency after "machine", call
+  retrieveNextFrequentWord("machine");
+
+  To retrieve the count of the next most frequent word after a given word, call retrieveNextWordCount(std::string firstWord, std::string secondWord).
+  Example: To get the count of the next most frequent word after "machine", call
+  retrieveNextWordCount("machine", retrieveNextFrequentWord("machine"));
 */
 
 
@@ -32,8 +47,9 @@ class Database {
     Database() {};
     Database(int reserveCount) { singleWord.reserve(reserveCount); doubleWord.reserve(reserveCount); }
     void insert(std::string sentence);  // inserts string based on whether it is a one word or a two word
-    int retrieveCount(std::string sentence); // retrieves string
-    std::string retrieveNextWord(std::string word); // retrieves the next word
+    int retrieveSingleWordCount(std::string word); // retrieves the highest count of the word
+    int retrieveNextWordCount(std::string firstWord, std::string secondWord); 
+    std::string retrieveNextFrequentWord(std::string word); // retrieves the highest count of the next word
 };
 
 #endif
