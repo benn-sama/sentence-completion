@@ -1,6 +1,22 @@
 #ifndef DATABASE_HPP
 #define DATABASE_HPP
 
+/*
+  Training Corpus Database
+
+  This class is responsible for storing the total count of both single-word and two-word appearances
+  within a corpus. It uses a hashtable for efficient lookup and storage.
+
+  Constructor:
+    Database(int bucketCount);
+
+  Description:
+    - Constructs a Database object with a specified number of memory buckets.
+    - Preallocating memory buckets is **RECOMMENDED** to avoid hashtable resizing,
+      which has a time complexity of O(n).
+*/
+
+
 #include <unordered_map>
 #include <string>
 #include <sstream>
