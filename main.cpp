@@ -71,5 +71,7 @@ int main() {
         }
     }
 
+    cout << "Total times" + testWord + "appears as a first word: " << model.getUnigramCount(testWord) << endl;
+
     return 0;
 }

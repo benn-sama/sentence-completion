@@ -87,3 +87,7 @@ std::vector<std::string> NGramModel::topNextWords(const std::string& w1, int k) 
 
     return result;
 }
+
+int NGramModel::getUnigramCount(const std::string& word) {
+  return unigramCounts[word];
+}
