@@ -91,7 +91,7 @@ std::vector<std::pair<std::string, int>> Database::retrieveNextNumOfFrequentWord
   outerTable = doubleWord.find(word);
 
   if (outerTable == doubleWord.end()) {
-    return;
+    exit(1);
   }
 
   std::unordered_map<std::string, int>::const_iterator innerTable;
@@ -104,7 +104,7 @@ std::vector<std::pair<std::string, int>> Database::retrieveNextNumOfFrequentWord
   });
 
   if (words.size() < numOfWords) {
-    return;
+    exit(1);
   }
 
   std::vector<std::pair<std::string, int>> wordPairs;
