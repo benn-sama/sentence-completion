@@ -1,7 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+#include <utility>
 #include "text_utils.hpp"
+#include "training_corpus/database.hpp"
 
 using namespace std;
 
@@ -24,10 +27,17 @@ int main() {
     vector<pair<string, string>> bigrams = generateBigrams(words);
     cout << "Total bigrams: " << bigrams.size() << endl;
 
-    // Optional: Print first 5 bigrams
-    for (int i = 0; i < 5 && i < bigrams.size(); ++i) {
-        cout << bigrams[i].first << " " << bigrams[i].second << endl;
+    // Step 5: Insert bigrams into the Database
+    Database db;
+    for (const auto& bigram : bigrams) {
+        string bigramString = bigram.first + " " + bigram.second;
+        db.insert(bigramString);
     }
+
+    // Optional: Test the database
+    string testWord = "to";
+    cout << "Most frequent word after \"" << testWord << "\": "
+         << db.retrieveNextFrequentWord(testWord) << endl;
 
     return 0;
 }
