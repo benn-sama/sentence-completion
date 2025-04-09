@@ -10,9 +10,9 @@ using namespace std;
 
 int main() {
     // Step 1: Load raw text from file
-    string raw = loadTextFile("text.txt");
+    string raw = loadTextFile("1661-0.txt");
     if (raw.empty()) {
-        cerr << "Error: Could not load text.txt" << endl;
+        cerr << "Error: Could not load 1661-0.txt" << endl;
         return 1;
     }
 
@@ -34,10 +34,25 @@ int main() {
         db.insert(bigramString);
     }
 
-    // Optional: Test the database
-    string testWord = "to";
-    cout << "Most frequent word after \"" << testWord << "\": "
-         << db.retrieveNextFrequentWord(testWord) << endl;
+    string testWord;
+    cout << "Enter a word to predict the next most likely word: ";
+    cin >> testWord;
+    
+    // Convert input to lowercase
+    for (char& c : testWord) {
+        c = tolower(c);
+    }
+
+    vector<pair<string, int>> predictions = db.retrieveNextNumOfFrequentWords(testWord, 2);
+
+    if (predictions.empty()) {
+        cout << "No predictions found for \"" << testWord << "\"." << endl;
+    } else {
+        cout << "Top predictions after \"" << testWord << "\":" << endl;
+        for (int i = 0; i < predictions.size(); ++i) {
+            cout << i + 1 << ". " << predictions[i].first << " (count: " << predictions[i].second << ")" << endl;
+        }
+    }
 
     return 0;
 }
