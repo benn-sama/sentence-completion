@@ -35,6 +35,9 @@
 #include <unordered_map>
 #include <string>
 #include <sstream>
+#include <vector>
+#include <utility>
+#include <algorithm>
 
 class Database {
   private:
@@ -50,6 +53,7 @@ class Database {
     int retrieveSingleWordCount(std::string word); // retrieves the highest count of the word
     int retrieveNextWordCount(std::string firstWord, std::string secondWord); 
     std::string retrieveNextFrequentWord(std::string word); // retrieves the highest count of the next word
+    std::vector<std::pair<std::string, int>> retrieveNextNumOfFrequentWords(std::string word, int numOfWords); // returns a vector of the string and associated int
 };
 
 #endif
