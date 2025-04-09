@@ -35,6 +35,8 @@ public:
 
     // Return top k likely next words
     std::vector<std::string> topNextWords(const std::string& w1, int k = 3);
+
+    int getUnigramCount(const std::string& word);
 };
 
 #endif
