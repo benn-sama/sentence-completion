@@ -7,7 +7,7 @@ TARGET = main
 TEST_TARGET = training-corpus-test
 
 # Source files
-SRC = main.cpp text_utils.cpp
+SRC = main.cpp text_utils.cpp training_corpus/database.cpp
 TEST_SRC = training_corpus/testing_training_corpus/training-corpus-testing.cpp training_corpus/database.cpp
 
 # Build rule
