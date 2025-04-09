@@ -84,3 +84,35 @@ std::string Database::retrieveNextFrequentWord(std::string word) { // retrieves 
   return nextWord;
 }
 
+std::vector<std::pair<std::string, int>> Database::retrieveNextNumOfFrequentWords(std::string word, int numOfWords) {
+  std::unordered_map<std::string, std::unordered_map<std::string, int>>::const_iterator outerTable;
+  std::vector<std::pair<std::string, int>> words;
+  
+  outerTable = doubleWord.find(word);
+
+  if (outerTable == doubleWord.end()) {
+    return;
+  }
+
+  std::unordered_map<std::string, int>::const_iterator innerTable;
+  for (innerTable = outerTable->second.begin(); innerTable != outerTable->second.end(); ++innerTable) {
+    words.push_back(std::pair<std::string, int>(innerTable->first, innerTable->second));
+  }
+
+  std::sort(words.begin(), words.end(), [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+    return a.second < b.second;
+  });
+
+  if (words.size() < numOfWords) {
+    return;
+  }
+
+  std::vector<std::pair<std::string, int>> wordPairs;
+
+  for (int i = 0; i < numOfWords; ++i) {
+    wordPairs.push_back(words.back());
+    words.pop_back();
+  }
+
+  return wordPairs;
+}
