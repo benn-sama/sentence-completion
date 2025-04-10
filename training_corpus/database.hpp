@@ -16,19 +16,42 @@
       which has a time complexity of O(n).
 
   Guide:
-  To interact with word frequencies, use the following functions:
+    To interact with word frequencies, use the following functions:
 
-  To retrieve the count of a specific word, call retrieveSingleWordCount(std::string sentence).
-  Example: To get the count of the word "machine", call
-  retrieveSingleWordCount("machine");
+    To insert a given string, call insert(std::string sentence).
+      STRONG ENCOURAGED: A two word string should be passed rather than a single word string.
+      The insert() method automatically adds +1 or adds the word to their corresponding hashtable.
+      Example: 
+        1. (RECOMMENDED) 
+          insert("machine learning"), will add "machine" into the singleWord hashtable, then "learning" will also be added to the doubleWord hashtable
+          automatically. 
 
-  To retrieve the next most frequent word after a given word, call retrieveNextFrequentWord(std::string word).
-  Example: To get the word that is next in frequency after "machine", call
-  retrieveNextFrequentWord("machine");
+        2. (USE ONLY WHEN NEEDED)
+          insert("machine learning") && insert("machine"), this causes machine to have an extra +1 in the singleWord hashtable or how ever many times you insert it by itself.
 
-  To retrieve the count of the next most frequent word after a given word, call retrieveNextWordCount(std::string firstWord, std::string secondWord).
-  Example: To get the count of the next most frequent word after "machine", call
-  retrieveNextWordCount("machine", retrieveNextFrequentWord("machine"));
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    To retrieve the count of a specific word, call returnFirstWordCount(std::string sentence).
+      Example: 
+        To get the count of the word "machine", call
+        returnFirstWordCount("machine");
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    To retrieve the next most frequent word after a given word, call returnMostFrequentSecondWord(std::string word).
+      Example: 
+        To get the word that is next in frequency after "machine", call
+        returnMostFrequentSecondWord("machine");
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    To retrieve the count of the next most frequent word after a given word, call returnSecondWordCount(std::string firstWord, std::string secondWord).
+      Example: 
+        To get the count of the next most frequent word after "machine", call
+        returnSecondWordCount("machine", retrieveNextFrequentWord("machine"));
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    To retrieve multiple highest frequency words from the doubleWord hashtable, call returnMultipleSecondWords(std::string word, int numOfWords).
+    This will return a vector of pairs, string:int (string and it's corresponding int) of the highest int. If there is NOT enough pairs to return, then
+    it will return how ever many pairs it has in the vector.
+      Example:
+        To get 5 highest frequency second words for "machine", call
+        returnMultipleSecondWords("machine", 5);
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
 

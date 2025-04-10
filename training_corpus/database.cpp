@@ -41,18 +41,15 @@ int Database::returnFirstWordCount(std::string word) { // returns total string a
   stream >> firstWord >> secondWord;
 
   if (firstWord.empty()) {
-    // throw std::invalid_argument("\nFAIL: String is empty!\nLOCATION: Database.cpp\nLINE: 46");
     return -1;
   }
 
   if (!secondWord.empty()) {
-    // throw std::invalid_argument("\nFAIL: Attempted to return 2 words!\nLOCATION: Database.cpp\nLINE: 59");
     return -2;
   }
 
   auto singleIt = singleWord.find(word);
   if (singleIt == singleWord.end()) {
-    // throw std::invalid_argument("\nFAIL: String not found!\nLOCATION: Database.cpp\nLINE: " + __LINE__);
     return -3;
   }
 
@@ -106,7 +103,7 @@ std::vector<std::pair<std::string, int>> Database::returnMultipleSecondWords(std
   outerTable = doubleWord.find(word);
 
   if (outerTable == doubleWord.end()) {
-    return words;
+    throw std::invalid_argument("\nFAIL: String not found!\nLOCATION: Database.cpp\nLINE: " + __LINE__);
   }
 
   std::unordered_map<std::string, int>::const_iterator innerTable;
