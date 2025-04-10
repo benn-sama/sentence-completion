@@ -6,7 +6,6 @@ bool Database::insertOneWord(std::string word) { // method for inserting a one w
   }
 
   singleWord[word]++;
-
   return true;
 }
 
@@ -19,14 +18,13 @@ bool Database::insertTwoWord(std::string firstWord, std::string secondWord) { //
   return true;
 }
 
-void Database::insert(std::string sentence) { // inserts two word string
+void Database::insert(std::string sentence) { // inserts two word string. inserts the first word into the singleWord hashatable then if there is a second word and adds that to doubleWord hashtable
   std::istringstream stream(sentence);
   std::string firstWord = "";
   std::string secondWord = "";
 
   stream >> firstWord >> secondWord;
-
-  if (!this->insertOneWord(sentence)) {
+  if (!this->insertOneWord(firstWord)) {
     return;
   }
 
@@ -35,7 +33,7 @@ void Database::insert(std::string sentence) { // inserts two word string
   }
 }
 
-int Database::retrieveSingleWordCount(std::string word) { // returns total string appearance or returns -1
+int Database::returnFirstWordCount(std::string word) { // returns total string appearance or returns -1
   std::istringstream stream(word);
   std::string firstWord = "";
   std::string secondWord = "";
@@ -43,26 +41,43 @@ int Database::retrieveSingleWordCount(std::string word) { // returns total strin
   stream >> firstWord >> secondWord;
 
   if (firstWord.empty()) {
+    // throw std::invalid_argument("\nFAIL: String is empty!\nLOCATION: Database.cpp\nLINE: 46");
     return -1;
   }
 
-  if (secondWord.empty()) {
-    return singleWord[firstWord];
+  if (!secondWord.empty()) {
+    // throw std::invalid_argument("\nFAIL: Attempted to return 2 words!\nLOCATION: Database.cpp\nLINE: 59");
+    return -2;
   }
-  else {
-    return -1;
+
+  auto singleIt = singleWord.find(word);
+  if (singleIt == singleWord.end()) {
+    // throw std::invalid_argument("\nFAIL: String not found!\nLOCATION: Database.cpp\nLINE: " + __LINE__);
+    return -3;
   }
+
+  return singleWord[word];
 }
 
-int Database::retrieveNextWordCount(std::string firstWord, std::string secondWord) {
+int Database::returnSecondWordCount(std::string firstWord, std::string secondWord) { // retrieves second word count
   if (firstWord.empty() || secondWord.empty()) {
     return -1;
+  }
+
+  auto outerIt = doubleWord.find(firstWord);
+  if (outerIt == doubleWord.end()) {
+    return -2;
+  }
+
+  auto innerIt = outerIt->second.find(secondWord);
+  if (innerIt == outerIt->second.end()) {
+    return -3;
   }
 
   return doubleWord[firstWord][secondWord];
 }
 
-std::string Database::retrieveNextFrequentWord(std::string word) { // retrieves the highest next word
+std::string Database::returnMostFrequentSecondWord(std::string word) { // retrieves the highest next word given the first word
   std::unordered_map<std::string, std::unordered_map<std::string, int>>::const_iterator outerTable;
   outerTable = doubleWord.find(word);
 
@@ -84,7 +99,7 @@ std::string Database::retrieveNextFrequentWord(std::string word) { // retrieves 
   return nextWord;
 }
 
-std::vector<std::pair<std::string, int>> Database::retrieveNextNumOfFrequentWords(std::string word, int numOfWords) {
+std::vector<std::pair<std::string, int>> Database::returnMultipleSecondWords(std::string word, int numOfWords) {
   std::unordered_map<std::string, std::unordered_map<std::string, int>>::const_iterator outerTable;
   std::vector<std::pair<std::string, int>> words;
   

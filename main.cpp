@@ -48,7 +48,7 @@ int main() {
         c = tolower(c);
     }
 
-    vector<pair<string, int>> predictions = db.retrieveNextNumOfFrequentWords(testWord, 2);
+    vector<pair<string, int>> predictions = db.returnMultipleSecondWords(testWord, 2);
 
     if (predictions.empty()) {
         cout << "[Database] No predictions found for \"" << testWord << "\"." << endl;
