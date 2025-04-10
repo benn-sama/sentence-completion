@@ -26,6 +26,9 @@ test: $(TEST_TARGET)
 run-test: $(TEST_TARGET)
 	./$(TEST_TARGET)
 
+run-main: $(TARGET)
+	./$(TARGET)
+
 # Clean rule
 clean:
 	@if [ -f $(TARGET) ]; then rm -f $(TARGET); fi || del /f /q $(TARGET)
