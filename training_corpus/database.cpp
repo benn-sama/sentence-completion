@@ -106,7 +106,7 @@ std::vector<std::pair<std::string, int>> Database::returnMultipleSecondWords(std
   outerTable = doubleWord.find(word);
 
   if (outerTable == doubleWord.end()) {
-    exit(1);
+    return words;
   }
 
   std::unordered_map<std::string, int>::const_iterator innerTable;
@@ -118,8 +118,8 @@ std::vector<std::pair<std::string, int>> Database::returnMultipleSecondWords(std
     return a.second < b.second;
   });
 
-  if (words.size() < numOfWords) {
-    exit(1);
+  if (words.size() <= numOfWords) {
+    return words;
   }
 
   std::vector<std::pair<std::string, int>> wordPairs;
