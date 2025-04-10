@@ -103,7 +103,9 @@ std::vector<std::pair<std::string, int>> Database::returnMultipleSecondWords(std
   outerTable = doubleWord.find(word);
 
   if (outerTable == doubleWord.end()) {
-    throw std::invalid_argument("\nFAIL: String not found!\nLOCATION: Database.cpp\nLINE: " + __LINE__);
+    return words;
+    throw std::invalid_argument(
+    std::string("\nFAIL: String not found!\nLOCATION: Database.cpp\nLINE: ") + std::to_string(__LINE__));
   }
 
   std::unordered_map<std::string, int>::const_iterator innerTable;
