@@ -38,6 +38,7 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <iostream>
 
 class Database {
   private:
@@ -50,10 +51,10 @@ class Database {
     Database() {};
     Database(int reserveCount) { singleWord.reserve(reserveCount); doubleWord.reserve(reserveCount); }
     void insert(std::string sentence);  // inserts string based on whether it is a one word or a two word
-    int retrieveSingleWordCount(std::string word); // retrieves the highest count of the word
-    int retrieveNextWordCount(std::string firstWord, std::string secondWord); 
-    std::string retrieveNextFrequentWord(std::string word); // retrieves the highest count of the next word
-    std::vector<std::pair<std::string, int>> retrieveNextNumOfFrequentWords(std::string word, int numOfWords); // returns a vector of the string and associated int
+    int returnFirstWordCount(std::string word); // retrieves the highest count of the word
+    int returnSecondWordCount(std::string firstWord, std::string secondWord); 
+    std::string returnMostFrequentSecondWord(std::string word); // retrieves the highest count of the next word
+    std::vector<std::pair<std::string, int>> returnMultipleSecondWords(std::string word, int numOfWords); // returns a vector of the string and associated int
 };
 
 #endif
