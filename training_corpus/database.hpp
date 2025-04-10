@@ -28,7 +28,6 @@
 
         2. (USE ONLY WHEN NEEDED)
           insert("machine learning") && insert("machine"), this causes machine to have an extra +1 in the singleWord hashtable or how ever many times you insert it by itself.
-
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     To retrieve the count of a specific word, call returnFirstWordCount(std::string sentence).
       Example: 
@@ -72,7 +71,7 @@ class Database {
     bool insertTwoWord(std::string firstWord, std::string secondWord);
   public:
     Database() {};
-    Database(int reserveCount) { singleWord.reserve(reserveCount); doubleWord.reserve(reserveCount); }
+    Database(int reserveCount) { singleWord.reserve(reserveCount); doubleWord.reserve(reserveCount); } 
     void insert(std::string sentence);  // inserts string based on whether it is a one word or a two word
     int returnFirstWordCount(std::string word); // retrieves the highest count of the word
     int returnSecondWordCount(std::string firstWord, std::string secondWord); 
