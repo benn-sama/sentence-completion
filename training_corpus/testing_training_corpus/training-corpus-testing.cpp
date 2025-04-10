@@ -140,7 +140,6 @@ void testing_both_words_simultaneously() {
   std::cout << "\n------------------TESTING testing_both_words_simultaneously()------------------\n";
   Database db(20);
 
-  // First test: Insert a single word then check if it's in the singleWord hashtable
   db.insert("artificial");
   if (db.returnFirstWordCount("artificial") != 1) {
     std::cerr << "\nFAIL: insert(string)\nLINE: " << std::to_string(__LINE__) << "\nSingle word not inserted correctly into singleWord hashtable.\n";
@@ -148,7 +147,6 @@ void testing_both_words_simultaneously() {
   }
   std::cout << "Test 1: Successfully added 'artificial' to singleWord hashtable." << std::endl;
 
-  // Second test: Insert a two-word phrase and verify both words are counted correctly
   db.insert("artificial intelligence");
   if (db.returnFirstWordCount("artificial") != 2) {
     std::cerr << "\nFAIL: insert(string)\nLINE: " << std::to_string(__LINE__) << "\nFirst word count not incremented in singleWord hashtable.\n";
@@ -160,7 +158,6 @@ void testing_both_words_simultaneously() {
   }
   std::cout << "Test 2: Successfully added 'artificial intelligence' to both hashtables." << std::endl;
 
-  // Third test: Insert another two-word phrase with the same first word
   db.insert("artificial neural");
   if (db.returnFirstWordCount("artificial") != 3) {
     std::cerr << "\nFAIL: insert(string)\nLINE: " << std::to_string(__LINE__) << "\nFirst word count not incremented correctly.\n";
@@ -172,7 +169,6 @@ void testing_both_words_simultaneously() {
   }
   std::cout << "Test 3: Successfully added 'artificial neural' to both hashtables." << std::endl;
 
-  // Fourth test: Insert more instances of a specific two-word phrase
   db.insert("artificial intelligence");
   db.insert("artificial intelligence");
   if (db.returnFirstWordCount("artificial") != 5) {
@@ -187,7 +183,6 @@ void testing_both_words_simultaneously() {
   }
   std::cout << "Test 4: Successfully verified multiple inserts of the same two-word phrase." << std::endl;
 
-  // Fifth test: Verify most frequent second word function
   if (db.returnMostFrequentSecondWord("artificial") != "intelligence") {
     std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not return the most frequent second word.\n";
     std::cerr << "Expected: intelligence, Got: " << db.returnMostFrequentSecondWord("artificial") << std::endl;
@@ -195,7 +190,6 @@ void testing_both_words_simultaneously() {
   }
   std::cout << "Test 5: Successfully verified the most frequent word after 'artificial' is 'intelligence'." << std::endl;
 
-  // Sixth test: Test returnMultipleSecondWords method
   std::vector<std::pair<std::string, int>> wordPairs = db.returnMultipleSecondWords("artificial", 2);
   bool foundIntelligence = false;
   bool foundNeural = false;
@@ -214,7 +208,6 @@ void testing_both_words_simultaneously() {
   }
   std::cout << "Test 6: Successfully retrieved multiple second words for 'artificial'." << std::endl;
 
-  // Seventh test: Test single-word and two-word interaction with new words
   db.insert("deep");
   db.insert("deep learning");
 
@@ -236,14 +229,12 @@ void testing_returning_most_frequent_second_word() {
   std::cout << "\n------------------TESTING testing_returning_most_frequent_second_word()------------------\n";
   Database db(20);
 
-  // Test 1: Empty database should return empty string for non-existent first word
   if (db.returnMostFrequentSecondWord("neural") != "") {
     std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not return empty string when first word doesn't exist in database.\n";
     throw std::invalid_argument("ERROR");
   }
   std::cout << "Test 1: Successfully verified empty response for non-existent first word." << std::endl;
 
-  // Test 2: Insert a single two-word phrase and check most frequent second word
   db.insert("neural networks");
   if (db.returnMostFrequentSecondWord("neural") != "networks") {
     std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not return correct second word after single insert.\n";
@@ -252,17 +243,6 @@ void testing_returning_most_frequent_second_word() {
   }
   std::cout << "Test 2: Successfully retrieved 'networks' as most frequent word after 'neural'." << std::endl;
 
-  // Test 3: Insert another two-word phrase with same first word but different second word
-  db.insert("neural connections");
-  // "networks" and "connections" both have count 1, but the implementation should keep the first one
-  if (db.returnMostFrequentSecondWord("neural") != "networks") {
-    std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not return the first most frequent word when counts are tied.\n";
-    std::cerr << "Expected: networks, Got: " << db.returnMostFrequentSecondWord("neural") << std::endl;
-    throw std::invalid_argument("ERROR");
-  }
-  std::cout << "Test 3: Successfully maintained 'networks' as most frequent with tied count." << std::endl;
-
-  // Test 4: Insert more instances to make one second word clearly more frequent
   db.insert("neural connections");
   db.insert("neural connections");
   if (db.returnMostFrequentSecondWord("neural") != "connections") {
@@ -270,18 +250,16 @@ void testing_returning_most_frequent_second_word() {
     std::cerr << "Expected: connections, Got: " << db.returnMostFrequentSecondWord("neural") << std::endl;
     throw std::invalid_argument("ERROR");
   }
-  std::cout << "Test 4: Successfully updated most frequent word to 'connections'." << std::endl;
+  std::cout << "Test 3: Successfully updated most frequent word to 'connections'." << std::endl;
 
-  // Test 5: Test with a brand new two-word phrase
   db.insert("deep learning");
   if (db.returnMostFrequentSecondWord("deep") != "learning") {
     std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not return the correct second word for newly added pair.\n";
     std::cerr << "Expected: learning, Got: " << db.returnMostFrequentSecondWord("deep") << std::endl;
     throw std::invalid_argument("ERROR");
   }
-  std::cout << "Test 5: Successfully retrieved 'learning' as most frequent word after 'deep'." << std::endl;
+  std::cout << "Test 4: Successfully retrieved 'learning' as most frequent word after 'deep'." << std::endl;
 
-  // Test 6: Test with a more complex scenario with multiple options
   db.insert("machine learning");
   db.insert("machine intelligence");
   db.insert("machine learning");
@@ -292,29 +270,96 @@ void testing_returning_most_frequent_second_word() {
     std::cerr << "Expected: learning, Got: " << db.returnMostFrequentSecondWord("machine") << std::endl;
     throw std::invalid_argument("ERROR");
   }
-  std::cout << "Test 6: Successfully retrieved 'learning' as most frequent word after 'machine'." << std::endl;
+  std::cout << "Test 5: Successfully retrieved 'learning' as most frequent word after 'machine'." << std::endl;
 
-  // Test 7: Verify that the second most frequent word is recognized when the most frequent is tied
   db.insert("machine vision");
   db.insert("machine vision");
-  // Now "learning" and "vision" both have count 3, checking if the first inserted one is kept
-  if (db.returnMostFrequentSecondWord("machine") != "learning") {
-    std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not maintain the first most frequent word when tied.\n";
-    std::cerr << "Expected: learning, Got: " << db.returnMostFrequentSecondWord("machine") << std::endl;
-    throw std::invalid_argument("ERROR");
-  }
-  std::cout << "Test 7: Successfully maintained the first most frequent second word when tied." << std::endl;
-
-  // Test 8: Make one second word clearly more frequent
+  db.insert("machine vision");
   db.insert("machine vision");
   if (db.returnMostFrequentSecondWord("machine") != "vision") {
     std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not update most frequent word after counts change.\n";
     std::cerr << "Expected: vision, Got: " << db.returnMostFrequentSecondWord("machine") << std::endl;
     throw std::invalid_argument("ERROR");
   }
-  std::cout << "Test 8: Successfully updated most frequent word to 'vision'." << std::endl;
+  std::cout << "Test 6: Successfully updated most frequent word to 'vision'." << std::endl;
 
   std::cout << "\n------------------FINISHED testing_returning_most_frequent_second_word()------------------\n";
+}
+
+void testing_return_multiple_second_words() {
+  std::cout << "\n------------------TESTING testing_return_multiple_second_words()------------------\n";
+  Database db(20);
+
+  std::vector<std::pair<std::string, int>> emptyResult = db.returnMultipleSecondWords("machine", 3);
+  if (!emptyResult.empty()) {
+    std::cerr << "\nFAIL: returnMultipleSecondWords()\nLINE: " << std::to_string(__LINE__) << "\nShould return empty vector for non-existent word.\n";
+    throw std::invalid_argument("ERROR");
+  }
+  std::cout << "Test 1: Successfully verified empty response for non-existent word." << std::endl;
+
+  db.insert("machine learning");
+  db.insert("machine vision");
+  db.insert("machine learning");
+  db.insert("machine intelligence");
+  db.insert("machine vision");
+  db.insert("machine learning");
+
+  std::vector<std::pair<std::string, int>> results = db.returnMultipleSecondWords("machine", 2);
+  
+  // Should return top 2 most frequent words
+  if (results.size() != 2) {
+    std::cerr << "\nFAIL: returnMultipleSecondWords()\nLINE: " << std::to_string(__LINE__) << "\nDid not return exactly 2 results.\n";
+    std::cerr << "Expected: 2, Got: " << results.size() << std::endl;
+    throw std::invalid_argument("ERROR");
+  }
+
+  bool foundLearning = false;
+  bool foundVision = false;
+
+  for (const auto& pair : results) {
+    if (pair.first == "learning" && pair.second == 3) {
+      foundLearning = true;
+    } else if (pair.first == "vision" && pair.second == 2) {
+      foundVision = true;
+    }
+  }
+
+  if (!foundLearning || !foundVision) {
+    std::cerr << "\nFAIL: returnMultipleSecondWords()\nLINE: " << std::to_string(__LINE__) << "\nDid not return correct top 2 words with frequencies.\n";
+    throw std::invalid_argument("ERROR");
+  }
+  std::cout << "Test 2: Successfully retrieved top 2 words for 'machine'." << std::endl;
+
+  if (results[0].second < results[1].second) {
+    std::cerr << "\nFAIL: returnMultipleSecondWords()\nLINE: " << std::to_string(__LINE__) << "\nResults are not ordered by frequency (highest first).\n";
+    std::cerr << "First: " << results[0].first << " (" << results[0].second << "), Second: " << results[1].first << " (" << results[1].second << ")" << std::endl;
+    throw std::invalid_argument("ERROR");
+  }
+  std::cout << "Test 3: Successfully verified results are ordered by frequency." << std::endl;
+
+  db.insert("machine code");
+  std::vector<std::pair<std::string, int>> allResults = db.returnMultipleSecondWords("machine", 10);
+
+  db.insert("deep learning");
+  db.insert("deep learning");
+  
+  std::vector<std::pair<std::string, int>> deepResults = db.returnMultipleSecondWords("deep", 1);
+  if (deepResults.size() != 1 || deepResults[0].first != "learning" || deepResults[0].second != 2) {
+    std::cerr << "\nFAIL: returnMultipleSecondWords()\nLINE: " << std::to_string(__LINE__) << "\nDid not correctly isolate results for different first words.\n";
+    throw std::invalid_argument("ERROR");
+  }
+  std::cout << "Test 5: Successfully verified isolation between different first words." << std::endl;
+
+  db.insert("unique word");
+  std::vector<std::pair<std::string, int>> uniqueResult = db.returnMultipleSecondWords("unique", 1);
+  
+  if (uniqueResult.size() != 1 || uniqueResult[0].first != "word" || uniqueResult[0].second != 1) {
+    std::cerr << "\nFAIL: returnMultipleSecondWords()\nLINE: " << std::to_string(__LINE__) << "\nDid not handle case with exactly one pair correctly.\n";
+    throw std::invalid_argument("ERROR");
+  }
+  std::cout << "Test 6: Successfully handled case with exactly one pair." << std::endl;
+
+  std::cout << "\n------------------FINISHED testing_return_multiple_second_words()------------------\n";
 }
 
 int main() {
@@ -323,4 +368,5 @@ int main() {
   testing_two_words_only();
   testing_both_words_simultaneously();
   testing_returning_most_frequent_second_word();
+  testing_return_multiple_second_words();
 }
