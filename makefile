@@ -8,7 +8,7 @@ TEST_TARGET = training-corpus-test
 NGRAM_TEST_TARGET = test_for_ngram_model
 
 # Source files
-SRC = main.cpp text_utils.cpp training_corpus/database.cpp ngram_model.cpp
+SRC = main.cpp text_utils.cpp training_corpus/database.cpp ngram_model.cpp real_time_typing.cpp
 TEST_SRC = training_corpus/testing_training_corpus/training-corpus-testing.cpp training_corpus/database.cpp
 NGRAM_TEST_SRC = test_for_ngram_model.cpp ngram_model.cpp
 
