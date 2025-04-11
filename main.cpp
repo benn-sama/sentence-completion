@@ -64,9 +64,16 @@ int main() {
                 cout << "Invalid choice. Try again.\n";
             }
         }
-        // Check: is input all letters?
-        else if (all_of(input.begin(), input.end(), ::isalpha)) {
-            // Process as a regular word
+        
+        // Accept input if it's a valid word or single hyphenated 
+        // word (e.g., "long-term"), but reject if it starts/ends with hyphen or has multiple
+        else if (
+            count(input.begin(), input.end(), '-') <= 1 &&
+            input.front() != '-' && input.back() != '-' &&
+            all_of(input.begin(), input.end(), [](char c) {
+                return isalpha(c) || c == '-';
+            })
+        ) {
             for (char& c : input) c = tolower(c);
             sentence += (sentence.empty() ? "" : " ") + input;
             currentWord = input;
