@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <utility>
+#include <cctype>
 #include "text_utils.hpp"
 #include "training_corpus/database.hpp"
 #include "ngram_model.hpp"
@@ -38,40 +39,60 @@ int main() {
     NGramModel model;
     model.train(bigrams);
 
-    string testWord;
-    cout << "Enter a word to predict the next most likely word: ";
-    cin >> testWord;
-    cout << endl;
+    string currentWord;
+    string sentence;
+
+    while (true) {
+        cout << "\nCurrent sentence: " << sentence << endl;
+        cout << "Enter a word, or choose a suggestion (1/2), or type 'exit' to quit: ";
     
-    // Convert input to lowercase
-    for (char& c : testWord) {
-        c = tolower(c);
-    }
-
-    vector<pair<string, int>> predictions = db.returnMultipleSecondWords(testWord, 2);
-
-    if (predictions.empty()) {
-        cout << "[Database] No predictions found for \"" << testWord << "\"." << endl;
-    } else {
-        cout << "[Database] Top predictions after \"" << testWord << "\":" << endl;
-        for (int i = 0; i < predictions.size(); ++i) {
-            cout << i + 1 << ". " << predictions[i].first << " (count: " << predictions[i].second << ")" << endl;
+        string input;
+        cin >> input;
+    
+        if (input == "exit") break;
+    
+        // Suggestion selection
+        if ((input == "1" || input == "2") && !currentWord.empty()) {
+            int choice = stoi(input) - 1;
+            vector<string> suggestions = model.topNextWords(currentWord, 2);
+    
+            if (choice < suggestions.size()) {
+                string chosenWord = suggestions[choice];
+                sentence += " " + chosenWord;
+                currentWord = chosenWord;
+            } else {
+                cout << "Invalid choice. Try again.\n";
+            }
+        }
+        // Check: is input all letters?
+        else if (all_of(input.begin(), input.end(), ::isalpha)) {
+            // Process as a regular word
+            for (char& c : input) c = tolower(c);
+            sentence += (sentence.empty() ? "" : " ") + input;
+            currentWord = input;
+        }
+        else {
+            // Reject anything that's not a letter or suggestion
+            cout << "Invalid input. Please enter a word or choose 1/2.\n";
+            continue;
+        }
+    
+        // Show predictions
+        vector<string> topWords = model.topNextWords(currentWord, 2);
+        if (topWords.empty()) {
+            cout << "[NGramModel] No predictions found for \"" << currentWord << "\"." << endl;
+        } else {
+            cout << "[NGramModel] Top suggestions:\n";
+            for (int i = 0; i < topWords.size(); ++i) {
+                double prob = model.getProbability(currentWord, topWords[i]);
+                cout << "(" << i + 1 << ") " << topWords[i] << " (p = " << prob << ")";
+                if (i == 0 && topWords.size() > 1) cout << "\n                or\n";
+                else cout << "\n";
+            }
         }
     }
 
-    vector<string> topWords = model.topNextWords(testWord, 2);
-
-    if (topWords.empty()) {
-        cout << "\n[NGramModel] No predictions found for \"" << testWord << "\"." << endl;
-    } else {
-        cout << "\n[NGramModel] Top predictions after \"" << testWord << "\":" << endl;
-        for (int i = 0; i < topWords.size(); ++i) {
-            double prob = model.getProbability(testWord, topWords[i]);
-            cout << i + 1 << ". " << topWords[i] << " (probability: " << prob << ")" << endl;
-        }
-    }
-
-    cout << "Total times " + testWord + " appears as a first word: " << model.getUnigramCount(testWord) << endl;
+    cout << "\nFinal completed sentence: " << sentence << endl;
 
     return 0;
 }
