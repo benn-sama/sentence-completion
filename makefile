@@ -33,3 +33,13 @@ run-main: $(TARGET)
 clean:
 	@if [ -f $(TARGET) ]; then rm -f $(TARGET); fi || del /f /q $(TARGET)
 	@if [ -f $(TEST_TARGET) ]; then rm -f $(TEST_TARGET); fi || del /f /q $(TEST_TARGET)
+
+	# NGramModel Test
+NGRAM_TEST_TARGET = test-ngram-model
+NGRAM_TEST_SRC = test_ngram_model.cpp ngram_model.cpp
+
+$(NGRAM_TEST_TARGET): $(NGRAM_TEST_SRC)
+	$(CXX) $(CXXFLAGS) $(NGRAM_TEST_SRC) -o $(NGRAM_TEST_TARGET)
+
+run-ngram-test: $(NGRAM_TEST_TARGET)
+	./$(NGRAM_TEST_TARGET)
