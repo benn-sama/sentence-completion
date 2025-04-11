@@ -44,11 +44,19 @@ void liveTyping(NGramModel& model) {
         else if (ch >= '1' && ch <= '3') {
             int index = ch - '1';
             if (index < predictions.size()) {
-                size_t lastSpace = buffer.find_last_of(" ");
-                if (lastSpace == string::npos) {
-                    buffer = predictions[index] + " ";
+                bool endsWithSpace = !buffer.empty() && buffer.back() == ' ';
+
+                if (endsWithSpace) {
+                    // Append the selected prediction
+                    buffer += predictions[index] + " ";
                 } else {
-                    buffer = buffer.substr(0, lastSpace + 1) + predictions[index] + " ";
+                    // Replace the word being typed
+                    size_t lastSpace = buffer.find_last_of(" ");
+                    if (lastSpace == string::npos) {
+                        buffer = predictions[index] + " ";
+                    } else {
+                        buffer = buffer.substr(0, lastSpace + 1) + predictions[index] + " ";
+                    }
                 }
             }
         }
