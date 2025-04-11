@@ -17,12 +17,19 @@ std::string loadTextFile(const std::string& filename) {
 
 std::string cleanText(const std::string& rawText) {
   std::string cleaned;
-  for (char c : rawText) {
+
+  for (size_t i = 0; i < rawText.size(); ++i) {
+      char c = rawText[i];
+
       if (std::isalpha(c) || std::isspace(c)) {
           cleaned += std::tolower(c);
       }
-      // skip punctuation and symbols
+      else if (c == '-' && i > 0 && i < rawText.size() - 1 &&
+               std::isalpha(rawText[i - 1]) && std::isalpha(rawText[i + 1])) {
+          cleaned += c; // only keep hyphen between letters
+      }
   }
+
   return cleaned;
 }
 
