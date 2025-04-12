@@ -2,7 +2,25 @@
 #include "text_utils.hpp"
 #include <iostream>
 #include <string>
-#include <conio.h>    // for _getch()
+#ifdef _WIN32
+    #include <conio.h>
+    char getChar() { return _getch(); }
+#else
+    #include <termios.h>
+    #include <unistd.h>
+    char getChar() {
+        struct termios oldt, newt;
+        char ch;
+        tcgetattr(STDIN_FILENO, &oldt);
+        newt = oldt;
+        newt.c_lflag &= ~(ICANON | ECHO);
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+        ch = getchar();
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+        return ch;
+    }
+#endif
+
 #include <cctype>     // for isprint()
 #include <algorithm>  // for all_of, find_last_of
 
@@ -35,7 +53,7 @@ void liveTyping(NGramModel& model) {
     cout << "\nStart typing your sentence (Press ESC to quit):\n";
 
     while (true) {
-        ch = _getch();
+        ch = getChar();
 
         if (ch == 27) break; // ESC key
         else if (ch == '\b') {
@@ -65,7 +83,11 @@ void liveTyping(NGramModel& model) {
         }
 
         // Clear the screen for real-time effect
-        system("cls");
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
 
         cout << "Current input: " << buffer << endl;
         cout << "Press ESC to quit.\n";
