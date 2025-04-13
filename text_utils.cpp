@@ -24,7 +24,7 @@ std::string cleanText(const std::string& rawText) {
       if (std::isalpha(c) || std::isspace(c)) {
           cleaned += std::tolower(c);
       }
-      else if (c == '-' && i > 0 && i < rawText.size() - 1 &&
+      else if ((c == '-' || c =='\'') && i > 0 && i < rawText.size() - 1 &&
                std::isalpha(rawText[i - 1]) && std::isalpha(rawText[i + 1])) {
           cleaned += c; // only keep hyphen between letters
       }
