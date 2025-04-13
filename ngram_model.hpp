@@ -1,6 +1,7 @@
 #ifndef NGRAM_MODEL_HPP
 #define NGRAM_MODEL_HPP
 
+#include "training_corpus/database.hpp"
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -16,6 +17,8 @@ private:
 
     // Total vocabulary size (unique words)
     int vocabularySize;
+
+    Database db;
 
 public:
     // Constructor

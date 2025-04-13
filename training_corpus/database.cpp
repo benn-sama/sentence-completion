@@ -14,6 +14,7 @@ bool Database::insertTwoWord(std::string firstWord, std::string secondWord) { //
     return false;
   }
 
+  singleWord[secondWord]++;
   doubleWord[firstWord][secondWord]++;
   return true;
 }
@@ -129,4 +130,8 @@ std::vector<std::pair<std::string, int>> Database::returnMultipleSecondWords(std
   }
 
   return wordPairs;
+}
+
+int Database::returnVocabSize() {
+  return singleWord.size();
 }

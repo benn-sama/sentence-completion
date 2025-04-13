@@ -77,6 +77,7 @@ class Database {
     int returnSecondWordCount(std::string firstWord, std::string secondWord); 
     std::string returnMostFrequentSecondWord(std::string word); // retrieves the highest count of the next word
     std::vector<std::pair<std::string, int>> returnMultipleSecondWords(std::string word, int numOfWords); // returns a vector of the string and associated int
+    int returnVocabSize();
 };
 
 #endif
