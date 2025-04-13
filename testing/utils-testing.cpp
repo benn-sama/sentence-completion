@@ -36,6 +36,7 @@ void testing_arbitrary_strings() {
   std::cout << "TESTING TOKENS\n\n";
 
   std::vector<std::string> tokens = tokenize(clean);
+  std::vector<std::pair<std::string, std::string>> bigrams = generateBigrams(tokens);
 
   for (size_t i = 0; i < tokens.size(); ++i) {
     std::cout << tokens[i] << " ";
@@ -43,7 +44,11 @@ void testing_arbitrary_strings() {
       std::cout << std::endl;
     }
   }
-  std::cout << std::endl; 
+  std::cout << "------------------------------------------------\n";
+  std::cout << "TESTING BIGRAMS\n\n";
+  for (size_t i = 0; i < bigrams.size(); ++i) {
+    std::cout << bigrams[i].first << " " << bigrams[i].second << std::endl;
+  }
   
   std::cout << "-----------------------FINISHED ARBITRARY TXT FILE-------------------------\n";
 }

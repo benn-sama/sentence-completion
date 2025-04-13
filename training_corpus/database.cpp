@@ -80,7 +80,7 @@ std::string Database::returnMostFrequentSecondWord(std::string word) { // retrie
 
   
   if (outerTable == doubleWord.end()) {
-    return "";
+    return "?";
   }
 
   std::unordered_map<std::string, int>::const_iterator innerTable;
@@ -129,4 +129,8 @@ std::vector<std::pair<std::string, int>> Database::returnMultipleSecondWords(std
   }
 
   return wordPairs;
+}
+
+int Database::returnVocabSize() {
+  return singleWord.size();
 }

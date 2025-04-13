@@ -229,7 +229,7 @@ void testing_returning_most_frequent_second_word() {
   std::cout << "\n------------------TESTING testing_returning_most_frequent_second_word()------------------\n";
   Database db(20);
 
-  if (db.returnMostFrequentSecondWord("neural") != "") {
+  if (db.returnMostFrequentSecondWord("neural") != "?") {
     std::cerr << "\nFAIL: returnMostFrequentSecondWord()\nLINE: " << std::to_string(__LINE__) << "\nDoes not return empty string when first word doesn't exist in database.\n";
     throw std::invalid_argument("ERROR");
   }
@@ -361,3 +361,4 @@ void testing_return_multiple_second_words() {
 
   std::cout << "\n------------------FINISHED testing_return_multiple_second_words()------------------\n";
 }
+

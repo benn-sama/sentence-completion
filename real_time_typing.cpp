@@ -83,9 +83,9 @@ void liveTyping(NGramModel& model) {
         }
 
         // Clear the screen for real-time effect
-        #ifdef _WIN32
-            system("cls");
-        #else
+#ifdef _WIN32
+        system("cls");
+#else
             system("clear");
         #endif
 
