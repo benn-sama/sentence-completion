@@ -13,7 +13,28 @@ using namespace std;
 
 int main() {
     // Load and preprocess
-    string raw = loadTextFile("1661-0.txt");
+    int user = -1;
+    cout << "1. For casual texting dataset.\n2. For book writing dataset.\n";
+    cout << "Input: ";
+    cin >> user;
+
+    while (user < 1 || user > 2 || cin.fail()) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Invalid input...\n";
+        cout << "1. For casual texting dataset.\n2. For book writing dataset.\n";
+        cout << "Input: ";
+        cin >> user;
+    }
+
+    string raw = "";
+    if (user == 1) {
+        raw = loadTextFile("dialog.txt");
+    }
+    else {
+        raw = loadTextFile("1661-0.txt");
+    }
+
     if (raw.empty()) {
         cerr << "Error: Could not load 1661-0.txt" << endl;
         return 1;
