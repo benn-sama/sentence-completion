@@ -27,6 +27,9 @@ double NGramModel::getProbability(const std::string& w1, const std::string& w2) 
     int bigramCount = db.returnSecondWordCount(w1, w2);
     int unigramCount = db.returnFirstWordCount(w1);
 
+    if (bigramCount <= 0 || unigramCount <= 0) {
+      return 0.0;
+    }
     if (unigramCount == 0) return 0.0;
     return static_cast<double>(bigramCount) / unigramCount;
 }
@@ -41,8 +44,6 @@ double NGramModel::getSmoothedProbability(const std::string& w1, const std::stri
 
 // Predict the most likely next word after w1
 std::string NGramModel::predictNext(const std::string& w1) {
-  if (bigramCounts.find(w1) == bigramCounts.end()) return "?";
-
   return db.returnMostFrequentSecondWord(w1);
 }
 

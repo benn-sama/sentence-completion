@@ -14,7 +14,6 @@ bool Database::insertTwoWord(std::string firstWord, std::string secondWord) { //
     return false;
   }
 
-  singleWord[secondWord]++;
   doubleWord[firstWord][secondWord]++;
   return true;
 }
@@ -81,7 +80,7 @@ std::string Database::returnMostFrequentSecondWord(std::string word) { // retrie
 
   
   if (outerTable == doubleWord.end()) {
-    return "";
+    return "?";
   }
 
   std::unordered_map<std::string, int>::const_iterator innerTable;
