@@ -9,12 +9,6 @@
 
 class NGramModel {
 private:
-    // Count of bigrams: word1 → (word2 → count)
-    std::unordered_map<std::string, std::unordered_map<std::string, int>> bigramCounts;
-
-    // Count of individual words (unigrams)
-    std::unordered_map<std::string, int> unigramCounts;
-
     // Total vocabulary size (unique words)
     int vocabularySize;
 
