@@ -2,7 +2,7 @@
 [Project 2 Student Chosen.pdf](https://github.com/user-attachments/files/19523410/Project.2.Student.Chosen.pdf)
 
 
-## How to run main for the Terminal to work: 
+# How to run main for the Terminal to work: 
 - make main
 - make run-main
 1.  For casual texting dataset. (A simple, hand-written dataset (text.txt) used to validate that sentence completion logic works properly with short and predictable sentences.)
