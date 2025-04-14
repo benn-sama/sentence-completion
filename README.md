@@ -10,7 +10,7 @@
 - Input: (This is chossing between what type of data set you want to use its either 1 or 2)
 - You'll then see this:
 - Start typing your sentence (Press ESC to quit): (Now you start typing)
-# After you type a word make sure to use a space before pressing a prediction to use.
+ After you type a word make sure to use a space before pressing a prediction to use or it will replace the word.
 
 # How to make the tests run: 
 - make main
