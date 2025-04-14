@@ -8,6 +8,8 @@
 1.  For casual texting dataset. (A simple, hand-written dataset (text.txt) used to validate that sentence completion logic works properly with short and predictable sentences.)
 2.  For book writing dataset. (A full novel text (1661-0.txt, The Adventures of Sherlock Holmes) from Project Gutenberg used to train the model on a rich vocabulary and complex structure. This demonstrates how the model performs with large, real-world language data.)
 - Input: (This is chossing between what type of data set you want to use its either 1 or 2)
+- You'll then see this:
+- Start typing your sentence (Press ESC to quit): (Now you start typing) 
 
 # How to make the tests run: 
 - make main
