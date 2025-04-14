@@ -9,9 +9,9 @@
 - 2. For book writing dataset. (A full novel text (1661-0.txt, The Adventures of Sherlock Holmes) from Project Gutenberg used to train the model on a rich vocabulary and complex structure. This demonstrates how the model performs with large, real-world language data.)
 - Input: (This is chossing between what type of datat set you want to use)
 
-## How to make the tests run: 
-# make main
-# make run-test
+# How to make the tests run: 
+make main
+make run-test
 
-## How to clean the code
-# make clean
+# How to clean the code
+ make clean
