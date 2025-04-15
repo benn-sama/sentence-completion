@@ -15,7 +15,7 @@
 - Tip: After typing a word, make sure to enter a space before pressing a prediction number (1–3), or the prediction will replace the current word.
 
 # How to make the tests run: 
-- make main
+- make main 
 - make run-test
 
 # How to clean the code
